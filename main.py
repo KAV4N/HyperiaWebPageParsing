@@ -39,9 +39,8 @@ class DetailedJobInformation:
 
     # Finds salary on the page.
     def find_salary(self):
-        salary = list(self.soup.find("strong", string="Platové ohodnotenie").parent.stripped_strings)[1].split(",-")
-        del salary[-1]
-        salary = " ".join(salary).rstrip() + " €"
+        salary = list(self.soup.find("strong", string="Platové ohodnotenie").parent.stripped_strings)[1]
+        salary = re.sub(' +', ' ', salary.replace(",-","").strip())
         self.dict_job_details["salary"] = salary
 
     # Finds contract type on the page.
